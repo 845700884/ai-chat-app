@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = 加密货币预测
+title = AI Chat App
 
 # (str) Package name
-package.name = cryptopredict
+package.name = aichatapp
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = com.crypto.predict
+package.domain = com.ai.chatapp
 
 # (str) Source code where the main.py live
 source.dir = .

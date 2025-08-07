@@ -11,27 +11,32 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
 
     - name: Build APK with Buildozer
       uses: ArtemSBulgakov/buildozer-action@v1
       id: buildozer
       with:
         command: buildozer android debug
-        buildozer_version: master
+        buildozer_version: stable
 
     - name: Upload APK artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: android-apk
-        path: ${{ steps.buildozer.outputs.filename }}
+        path: bin/*.apk
 
     - name: Create Release
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v${{ github.run_number }}
-        name: AI聊天助手 v${{ github.run_number }}
-        files: ${{ steps.buildozer.outputs.filename }}
+        name: AI Chat App v${{ github.run_number }}
+        files: bin/*.apk
         draft: false
         prerelease: false
